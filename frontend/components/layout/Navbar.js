@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -40,7 +41,13 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-9 h-9 bg-gradient-to-br from-accent-400 to-cta-500 rounded-xl flex items-center justify-center shadow-lg shadow-primary-900/30 transition-shadow">
-              <BookIcon />
+              <Image
+                src="/Learnify-logo.png"
+                  alt="Learnify-logo"
+                    width={20}
+                      height={20}
+                        className="w-5 h-5"
+              />
             </div>
             <span className="font-display font-bold text-xl text-primary-900 dark:text-white tracking-tight">Learnify</span>
           </Link>
