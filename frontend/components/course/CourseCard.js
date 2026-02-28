@@ -22,11 +22,11 @@ const ButtonSpinner = () => (
 );
 
 const gradients = [
-  'from-brand-600/30 to-accent-600/20',
-  'from-cyan-600/30 to-brand-600/20',
-  'from-violet-600/30 to-pink-600/20',
-  'from-emerald-600/30 to-cyan-600/20',
-  'from-orange-600/30 to-rose-600/20',
+  'from-primary-700/35 to-accent-400/30',
+  'from-accent-500/35 to-primary-700/30',
+  'from-cta-600/35 to-primary-700/30',
+  'from-accent-500/35 to-cta-500/30',
+  'from-cta-500/35 to-primary-800/30',
 ];
 
 /**
@@ -87,7 +87,7 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
     <div
       className={`
         card flex flex-col transition-all duration-300 group
-        hover:border-slate-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30
+        hover:border-primary-400 dark:hover:border-primary-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-900/20
         ${enrolling ? 'opacity-80 scale-[0.99]' : 'opacity-100'}
       `}
     >
@@ -100,15 +100,15 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
             className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-surface-900 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface-50 dark:from-surface-900 via-transparent to-transparent" />
 
         {subject.enrolled && (
-          <div className="absolute top-3 right-3 badge bg-brand-600/90 text-white text-xs px-2.5 py-1">
+          <div className="absolute top-3 right-3 badge bg-accent-500/95 text-white text-xs px-2.5 py-1">
             Enrolled
           </div>
         )}
         {subject.video_count === 0 && (
-          <div className="absolute top-3 left-3 badge bg-amber-600/90 text-white text-xs px-2.5 py-1">
+          <div className="absolute top-3 left-3 badge bg-cta-600/95 text-white text-xs px-2.5 py-1">
             Coming Soon
           </div>
         )}
@@ -116,16 +116,16 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
 
       {/* Content */}
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display font-bold text-lg text-white leading-snug mb-2 line-clamp-2 group-hover:text-brand-300 transition-colors">
+        <h3 className="font-display font-bold text-lg text-primary-900 dark:text-white leading-snug mb-2 line-clamp-2 group-hover:text-accent-600 dark:group-hover:text-accent-300 transition-colors">
           {subject.name}
         </h3>
 
         {subject.description && (
-          <p className="text-sm text-slate-400 line-clamp-2 mb-4">{subject.description}</p>
+          <p className="text-sm text-primary-700 dark:text-slate-400 line-clamp-2 mb-4">{subject.description}</p>
         )}
 
         {/* Stats */}
-        <div className="flex items-center gap-4 mb-4 text-xs text-slate-500">
+        <div className="flex items-center gap-4 mb-4 text-xs text-primary-600 dark:text-slate-500">
           <span className="flex items-center gap-1.5">
             <BookOpenIcon />
             {subject.section_count || 0} sections
@@ -139,9 +139,9 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
         {/* Progress bar — only for enrolled + has content */}
         {subject.enrolled && subject.video_count > 0 && (
           <div className="mb-4">
-            <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+            <div className="flex justify-between text-xs text-primary-700 dark:text-slate-400 mb-1.5">
               <span>Progress</span>
-              <span className="font-medium text-brand-400">{progressPercent}%</span>
+              <span className="font-medium text-accent-500">{progressPercent}%</span>
             </div>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
@@ -152,7 +152,7 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
         <div className="mt-auto">
           {subject.enrolled ? (
             subject.video_count === 0 ? (
-              <div className="w-full py-2.5 px-4 rounded-xl text-center text-sm text-slate-500 bg-surface-800 border border-slate-700 cursor-not-allowed select-none">
+              <div className="w-full py-2.5 px-4 rounded-xl text-center text-sm text-primary-600 dark:text-slate-500 bg-primary-100 dark:bg-surface-800 border border-primary-300 dark:border-primary-700 cursor-not-allowed select-none">
                 Content Coming Soon
               </div>
             ) : (

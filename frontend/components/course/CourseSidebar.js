@@ -34,17 +34,17 @@ function VideoItem({ video, isActive, onSelect, videoIndex }) {
       onClick={() => !isLocked && onSelect(video.id)}
       disabled={isLocked}
       className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all duration-200 group
-        ${isActive ? 'bg-brand-600/20 border border-brand-500/40' : 'hover:bg-white/5 border border-transparent'}
+        ${isActive ? 'bg-accent-400/15 border border-accent-400/40' : 'hover:bg-primary-100 dark:hover:bg-white/5 border border-transparent'}
         ${isLocked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}
     >
       {/* Status icon */}
       <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs mt-0.5
-        ${isCompleted ? 'bg-emerald-500 text-white' : ''}
-        ${isActive && !isCompleted ? 'bg-brand-500 text-white' : ''}
-        ${isInProgress && !isActive ? 'bg-brand-900 border-2 border-brand-500 text-brand-400' : ''}
-        ${isLocked ? 'bg-slate-800 text-slate-600 border border-slate-700' : ''}
-        ${!isCompleted && !isActive && !isInProgress && !isLocked ? 'bg-slate-800 border border-slate-700 text-slate-400' : ''}
+        ${isCompleted ? 'bg-cta-500 text-primary-900 dark:text-white' : ''}
+        ${isActive && !isCompleted ? 'bg-accent-500 text-primary-900 dark:text-white' : ''}
+        ${isInProgress && !isActive ? 'bg-primary-900 border-2 border-accent-400 text-accent-400' : ''}
+        ${isLocked ? 'bg-primary-200 dark:bg-surface-800 text-primary-500 dark:text-slate-600 border border-primary-300 dark:border-primary-700' : ''}
+        ${!isCompleted && !isActive && !isInProgress && !isLocked ? 'bg-primary-200 dark:bg-surface-800 border border-primary-300 dark:border-primary-700 text-primary-600 dark:text-slate-400' : ''}
       `}>
         {isCompleted ? <CheckIcon /> : isLocked ? <LockIcon /> : isActive ? <PlayIcon /> : <span>{videoIndex}</span>}
       </div>
@@ -52,20 +52,20 @@ function VideoItem({ video, isActive, onSelect, videoIndex }) {
       {/* Title */}
       <div className="flex-1 min-w-0">
         <p className={`text-xs font-medium leading-snug truncate
-          ${isActive ? 'text-brand-300' : isCompleted ? 'text-slate-400' : isLocked ? 'text-slate-600' : 'text-slate-300'}
+          ${isActive ? 'text-accent-500' : isCompleted ? 'text-primary-700 dark:text-slate-400' : isLocked ? 'text-primary-500 dark:text-slate-600' : 'text-primary-800 dark:text-slate-300'}
         `}>
           {video.title}
         </p>
         {video.duration_seconds > 0 && (
-          <span className="text-[10px] text-slate-600 mt-0.5 block">
+          <span className="text-[10px] text-primary-500 dark:text-slate-600 mt-0.5 block">
             {Math.floor(video.duration_seconds / 60)}:{String(video.duration_seconds % 60).padStart(2, '0')}
           </span>
         )}
         {/* Mini progress bar */}
         {isInProgress && video.duration_seconds > 0 && (
-          <div className="mt-1.5 h-0.5 bg-slate-800 rounded-full overflow-hidden w-full">
+          <div className="mt-1.5 h-0.5 bg-primary-200 dark:bg-surface-800 rounded-full overflow-hidden w-full">
             <div
-              className="h-full bg-brand-500 rounded-full"
+              className="h-full bg-accent-500 rounded-full"
               style={{ width: `${Math.min((video.progress.last_watched_seconds / video.duration_seconds) * 100, 100)}%` }}
             />
           </div>
@@ -82,18 +82,18 @@ function SectionAccordion({ section, sectionIndex, activeVideoId, onVideoSelect,
   const totalInSection = section.videos?.length || 0;
 
   return (
-    <div className="border border-slate-800/60 rounded-xl overflow-hidden">
+    <div className="border border-primary-300 dark:border-primary-800/60 rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-3.5 hover:bg-white/5 transition-colors text-left"
+        className="w-full flex items-center justify-between p-3.5 hover:bg-primary-100 dark:hover:bg-white/5 transition-colors text-left"
       >
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="w-7 h-7 rounded-lg bg-surface-800 flex items-center justify-center text-xs font-mono font-bold text-slate-400 flex-shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-primary-100 dark:bg-surface-800 flex items-center justify-center text-xs font-mono font-bold text-primary-700 dark:text-slate-400 flex-shrink-0">
             {sectionIndex}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-slate-200 leading-tight truncate">{section.title}</p>
-            <p className="text-[10px] text-slate-500 mt-0.5">
+            <p className="text-sm font-semibold text-primary-900 dark:text-slate-200 leading-tight truncate">{section.title}</p>
+            <p className="text-[10px] text-primary-600 dark:text-slate-500 mt-0.5">
               {completedInSection}/{totalInSection} completed
             </p>
           </div>
@@ -102,7 +102,7 @@ function SectionAccordion({ section, sectionIndex, activeVideoId, onVideoSelect,
       </button>
 
       {open && (
-        <div className="px-2 pb-2 space-y-0.5 border-t border-slate-800/60">
+        <div className="px-2 pb-2 space-y-0.5 border-t border-primary-200 dark:border-primary-800/60">
           {section.videos?.map((video, vIdx) => (
             <VideoItem
               key={video.id}
@@ -126,13 +126,13 @@ export default function CourseSidebar({ subject, sections, activeVideoId, onVide
   return (
     <aside className="w-full h-full flex flex-col">
       {/* Course header */}
-      <div className="p-4 border-b border-slate-800/60">
-        <h2 className="font-display font-bold text-sm text-white leading-snug mb-3 line-clamp-2">
+      <div className="p-4 border-b border-primary-200 dark:border-primary-800/60">
+        <h2 className="font-display font-bold text-sm text-primary-900 dark:text-white leading-snug mb-3 line-clamp-2">
           {subject?.name}
         </h2>
-        <div className="flex justify-between text-xs text-slate-400 mb-1.5">
+        <div className="flex justify-between text-xs text-primary-700 dark:text-slate-400 mb-1.5">
           <span>Course Progress</span>
-          <span className="font-semibold text-brand-400">{progressPercent || 0}%</span>
+          <span className="font-semibold text-accent-500">{progressPercent || 0}%</span>
         </div>
         <div className="progress-bar">
           <div className="progress-fill" style={{ width: `${progressPercent || 0}%` }} />

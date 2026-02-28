@@ -104,14 +104,14 @@ export default function DashboardPage() {
         {/* Welcome header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center font-display font-bold text-white text-lg">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-400 to-cta-500 flex items-center justify-center font-display font-bold text-primary-900 dark:text-white text-lg">
               {user?.name?.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h1 className="font-display font-bold text-3xl text-white">
+              <h1 className="font-display font-bold text-3xl text-primary-900 dark:text-white">
                 Welcome back, {user?.name?.split(' ')[0]}!
               </h1>
-              <p className="text-slate-400 text-sm">Ready to continue learning?</p>
+              <p className="text-primary-700 dark:text-slate-400 text-sm">Ready to continue learning?</p>
             </div>
           </div>
         </div>
@@ -129,25 +129,25 @@ export default function DashboardPage() {
             label="Videos Completed"
             value={completedVideos}
             sub={`of ${totalVideos} total`}
-            color="emerald"
+            color="cta"
           />
           <StatsCard
             icon={<TrophyIcon />}
             label="Avg. Progress"
             value={`${avgProgress}%`}
-            color="violet"
+            color="accent"
           />
           <StatsCard
             icon={<GridIcon />}
             label="Available Courses"
             value={allSubjects.length}
             sub="not yet enrolled"
-            color="amber"
+            color="primary"
           />
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-surface-900 border border-slate-800 rounded-xl mb-8 w-fit">
+        <div className="flex gap-1 p-1 bg-surface-50 dark:bg-surface-900 border border-primary-300 dark:border-primary-800 rounded-xl mb-8 w-fit">
           {[
             { key: 'enrolled', label: `My Courses (${subjects.length})` },
             { key: 'browse', label: `Browse (${allSubjects.length})` },
@@ -157,8 +157,8 @@ export default function DashboardPage() {
               onClick={() => setActiveTab(tab.key)}
               className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === tab.key
-                  ? 'bg-brand-600 text-white shadow-md shadow-brand-900/40'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-accent-500 text-white shadow-md shadow-primary-900/30'
+                  : 'text-primary-700 dark:text-slate-400 hover:text-primary-900 dark:hover:text-slate-200'
               }`}
             >
               {tab.label}
@@ -171,8 +171,8 @@ export default function DashboardPage() {
           subjects.length === 0 ? (
             <div className="card p-16 text-center">
               <div className="text-5xl mb-4">📚</div>
-              <h3 className="font-display font-bold text-xl text-white mb-2">No courses yet</h3>
-              <p className="text-slate-400 mb-6">Browse available courses and enroll to start learning</p>
+              <h3 className="font-display font-bold text-xl text-primary-900 dark:text-white mb-2">No courses yet</h3>
+              <p className="text-primary-700 dark:text-slate-400 mb-6">Browse available courses and enroll to start learning</p>
               <button onClick={() => setActiveTab('browse')} className="btn-primary">
                 Browse Courses
               </button>
@@ -188,8 +188,8 @@ export default function DashboardPage() {
           allSubjects.length === 0 ? (
             <div className="card p-16 text-center">
               <div className="text-5xl mb-4">🎉</div>
-              <h3 className="font-display font-bold text-xl text-white mb-2">You're enrolled in everything!</h3>
-              <p className="text-slate-400">All available courses are in your library.</p>
+              <h3 className="font-display font-bold text-xl text-primary-900 dark:text-white mb-2">You're enrolled in everything!</h3>
+              <p className="text-primary-700 dark:text-slate-400">All available courses are in your library.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

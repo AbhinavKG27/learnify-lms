@@ -135,6 +135,14 @@ export default function CoursePage() {
     }
   }, []);
 
+  const refreshCourseProgress = useCallback(async () => {
+    if (!subjectId) return;
+    try {
+      const progressRes = await videosAPI.getCourseProgress(subjectId);
+      setProgressPercent(progressRes.data.percentage || 0);
+    } catch (_) {}
+  }, [subjectId]);
+
   const handleVideoSelect = useCallback((videoId) => {
     loadVideo(videoId);
   }, [loadVideo]);
@@ -152,11 +160,7 @@ export default function CoursePage() {
       }))
     );
 
-    // Refresh course progress
-    try {
-      const progressRes = await videosAPI.getCourseProgress(subjectId);
-      setProgressPercent(progressRes.data.percentage || 0);
-    } catch (_) {}
+    await refreshCourseProgress();
 
     // Refresh sections to update unlock states
     try {
@@ -167,7 +171,7 @@ export default function CoursePage() {
     if (autoNext && nextVideoId) {
       loadVideo(nextVideoId);
     }
-  }, [subjectId, nextVideoId, loadVideo]);
+  }, [nextVideoId, loadVideo, refreshCourseProgress]);
 
   const handleProgressUpdate = useCallback((videoId, seconds, completed) => {
     setSections(prev =>
@@ -180,7 +184,8 @@ export default function CoursePage() {
         ),
       }))
     );
-  }, []);
+    if (completed) refreshCourseProgress();
+  }, [refreshCourseProgress]);
 
   if (authLoading || loading) {
     return (
@@ -203,10 +208,10 @@ export default function CoursePage() {
           <div className="pt-16 flex-1 flex items-center justify-center">
             <div className="text-center max-w-md mx-auto px-4">
               <div className="text-5xl mb-4">⚠️</div>
-              <h2 className="font-display font-bold text-2xl text-white mb-2">
+              <h2 className="font-display font-bold text-2xl text-primary-900 dark:text-white mb-2">
                 {error.includes('enrolled') ? 'Not Enrolled' : 'Something went wrong'}
               </h2>
-              <p className="text-slate-400 mb-6">{error}</p>
+              <p className="text-primary-700 dark:text-slate-400 mb-6">{error}</p>
               <div className="flex gap-3 justify-center">
                 <button onClick={() => router.back()} className="btn-secondary">Go Back</button>
                 <button onClick={() => router.push('/dashboard')} className="btn-primary">Dashboard</button>
@@ -224,16 +229,16 @@ export default function CoursePage() {
     return (
       <>
         <Head><title>{subject?.name || 'Course'} — Learnify</title></Head>
-        <div className="min-h-screen flex flex-col bg-surface-950">
+        <div className="min-h-screen flex flex-col bg-surface-100 dark:bg-surface-950">
           <Navbar />
           <div className="pt-16 flex-1 flex items-center justify-center">
             <div className="text-center max-w-lg mx-auto px-4">
               <div className="text-6xl mb-6">🚧</div>
-              <h2 className="font-display font-bold text-3xl text-white mb-3">
+              <h2 className="font-display font-bold text-3xl text-primary-900 dark:text-white mb-3">
                 {subject?.name}
               </h2>
-              <p className="text-slate-400 mb-2 text-lg">This course content is coming soon.</p>
-              <p className="text-slate-500 text-sm mb-8">
+              <p className="text-primary-700 dark:text-slate-400 mb-2 text-lg">This course content is coming soon.</p>
+              <p className="text-primary-600 dark:text-slate-500 text-sm mb-8">
                 You&apos;re enrolled! We&apos;ll notify you as soon as lessons are available.
               </p>
               <div className="flex gap-3 justify-center">
@@ -254,12 +259,12 @@ export default function CoursePage() {
   return (
     <>
       <Head><title>{subject?.name || 'Course'} — Learnify</title></Head>
-      <div className="min-h-screen flex flex-col bg-surface-950">
+      <div className="min-h-screen flex flex-col bg-surface-100 dark:bg-surface-950">
         <Navbar />
 
         <div className="flex flex-1 pt-16 overflow-hidden h-[calc(100vh-64px)]">
           {/* Sidebar */}
-          <div className={`flex-shrink-0 transition-all duration-300 border-r border-slate-800/60 bg-surface-900 overflow-hidden ${sidebarOpen ? 'w-80' : 'w-0'}`}>
+          <div className={`flex-shrink-0 transition-all duration-300 border-r border-primary-200 dark:border-primary-800/60 bg-surface-50 dark:bg-surface-900 overflow-hidden ${sidebarOpen ? 'w-80' : 'w-0'}`}>
             {sidebarOpen && (
               <div className="h-full overflow-hidden">
                 <CourseSidebar
@@ -276,7 +281,7 @@ export default function CoursePage() {
           {/* Main content */}
           <div className="flex-1 overflow-y-auto">
             {/* Top bar */}
-            <div className="flex items-center gap-3 px-6 py-3.5 border-b border-slate-800/60 bg-surface-950/90 sticky top-0 z-10 backdrop-blur-sm">
+            <div className="flex items-center gap-3 px-6 py-3.5 border-b border-primary-200 dark:border-primary-800/60 bg-surface-100 dark:bg-surface-950/90 sticky top-0 z-10 backdrop-blur-sm">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 className="btn-ghost p-2 -ml-1"
@@ -285,18 +290,18 @@ export default function CoursePage() {
                 {sidebarOpen ? <XIcon /> : <MenuIcon />}
               </button>
 
-              <div className="h-5 w-px bg-slate-800" />
+              <div className="h-5 w-px bg-primary-200 dark:bg-slate-800" />
 
-              <div className="flex items-center gap-2 text-sm text-slate-400 min-w-0">
-                <button onClick={() => router.push('/dashboard')} className="hover:text-white transition-colors flex-shrink-0">
+              <div className="flex items-center gap-2 text-sm text-primary-700 dark:text-slate-400 min-w-0">
+                <button onClick={() => router.push('/dashboard')} className="text-primary-800 dark:text-slate-300 hover:text-primary-900 dark:hover:text-white transition-colors flex-shrink-0">
                   Dashboard
                 </button>
                 <span>/</span>
-                <span className="text-slate-300 truncate">{subject?.name}</span>
+                <span className="text-primary-800 dark:text-slate-300 truncate">{subject?.name}</span>
                 {currentVideo && (
                   <>
                     <span>/</span>
-                    <span className="text-white truncate">{currentVideo.title}</span>
+                    <span className="text-primary-900 dark:text-white truncate">{currentVideo.title}</span>
                   </>
                 )}
               </div>
@@ -324,8 +329,8 @@ export default function CoursePage() {
               {!videoLoading && nextVideoId && (
                 <div className="mt-6 p-4 card flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs text-slate-500 mb-0.5">Up Next</p>
-                    <p className="text-sm text-slate-300 font-medium">Continue your learning path</p>
+                    <p className="text-xs text-primary-600 dark:text-slate-500 mb-0.5">Up Next</p>
+                    <p className="text-sm text-primary-800 dark:text-slate-300 font-medium">Continue your learning path</p>
                   </div>
                   <button
                     onClick={() => loadVideo(nextVideoId)}
@@ -342,11 +347,11 @@ export default function CoursePage() {
               {/* Course complete */}
               {!videoLoading && !nextVideoId && currentVideo && progressPercent === 100 && (
                 <div className="mt-6 p-6 card text-center glow-brand relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-600/10 to-emerald-600/10" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent-400/10 to-cta-500/10" />
                   <div className="relative z-10">
                     <div className="text-4xl mb-3">🎉</div>
-                    <h3 className="font-display font-bold text-xl text-white mb-2">Course Complete!</h3>
-                    <p className="text-slate-400 text-sm">Congratulations! You've mastered the entire course.</p>
+                    <h3 className="font-display font-bold text-xl text-primary-900 dark:text-white mb-2">Course Complete!</h3>
+                    <p className="text-primary-700 dark:text-slate-400 text-sm">Congratulations! You've mastered the entire course.</p>
                   </div>
                 </div>
               )}

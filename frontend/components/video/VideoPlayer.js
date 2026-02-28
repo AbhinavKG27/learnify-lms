@@ -113,13 +113,13 @@ export default function VideoPlayer({ video, progress, onComplete, onProgress, n
   if (!video) {
     return (
       <div className="aspect-video bg-surface-900 rounded-2xl flex items-center justify-center">
-        <p className="text-slate-500">Select a video to start learning</p>
+        <p className="text-primary-600 dark:text-slate-500">Select a video to start learning</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 transition-colors duration-300">
       {/* Video container */}
       <div className="relative aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
         <video
@@ -138,16 +138,16 @@ export default function VideoPlayer({ video, progress, onComplete, onProgress, n
         {/* Completion overlay */}
         {showCompleteOverlay && (
           <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-4 rounded-2xl animate-fade-in">
-            <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center">
-              <svg className="w-10 h-10 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+            <div className="w-20 h-20 rounded-full bg-cta-500/20 border-2 border-cta-500 flex items-center justify-center">
+              <svg className="w-10 h-10 text-cta-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
             </div>
-            <h3 className="font-display font-bold text-xl text-white">Video Completed!</h3>
+            <h3 className="font-display font-bold text-xl text-primary-900 dark:text-white">Video Completed!</h3>
 
             {nextVideoId && autoplayCountdown !== null && (
-              <p className="text-slate-300 text-sm">
-                Next video in <span className="text-brand-400 font-bold">{autoplayCountdown}s</span>...
+              <p className="text-primary-200 dark:text-slate-300 text-sm">
+                Next video in <span className="text-accent-400 font-bold">{autoplayCountdown}s</span>...
               </p>
             )}
 
@@ -181,14 +181,14 @@ export default function VideoPlayer({ video, progress, onComplete, onProgress, n
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             {isCompleted && (
-              <span className="badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              <span className="badge bg-emerald-500/15 text-cta-500 border border-emerald-500/30">
                 <span className="mr-1"><CheckCircleIcon /></span>Completed
               </span>
             )}
           </div>
-          <h2 className="font-display font-bold text-xl text-white leading-snug">{video.title}</h2>
+          <h2 className="font-display font-bold text-xl text-primary-900 dark:text-white leading-snug">{video.title}</h2>
           {video.description && (
-            <p className="text-slate-400 text-sm mt-2 leading-relaxed">{video.description}</p>
+            <p className="text-primary-700 dark:text-slate-400 text-sm mt-2 leading-relaxed">{video.description}</p>
           )}
         </div>
 

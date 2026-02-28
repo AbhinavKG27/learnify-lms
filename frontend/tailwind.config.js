@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,31 +9,44 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#f0f4ff',
-          100: '#e0e9ff',
-          200: '#c7d7fe',
-          300: '#a5bbfc',
-          400: '#8196f8',
-          500: '#6171f3',
-          600: '#4a52e8',
-          700: '#3b3fcc',
-          800: '#3235a5',
-          900: '#2d3183',
-          950: '#1c1e4d',
+        primary: {
+          50: '#cdeff6',
+          100: '#b8e5f0',
+          200: '#8cd2df',
+          300: '#5eb1bf',
+          400: '#4d9aa8',
+          500: '#3a7e8a',
+          600: '#2a636d',
+          700: '#1c4b53',
+          800: '#0f363b',
+          900: '#042a2b',
+          950: '#031d1e',
         },
         accent: {
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
+          300: '#7bc3cf',
+          400: '#5eb1bf',
+          500: '#4d9ca9',
+          600: '#3e8792',
+        },
+        cta: {
+          400: '#f39a70',
+          500: '#ef7b45',
+          600: '#d84727',
         },
         surface: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#080c14',
+          50: '#f7fcfe',
+          100: '#cdedf6',
+          200: '#b4dbe5',
+          800: '#0f363b',
+          900: '#042a2b',
+          950: '#031d1e',
+        },
+        brand: {
+          400: '#5eb1bf',
+          500: '#3a7e8a',
+          600: '#2a636d',
+          700: '#1c4b53',
+          900: '#042a2b',
         }
       },
       fontFamily: {
@@ -62,7 +76,7 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236171f3' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+        'hero-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235EB1BF' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
       },
     },
   },

@@ -104,10 +104,13 @@ const getCourseProgress = async (req, res, next) => {
     const enrollment = await EnrollmentModel.findByUserAndSubject(req.user.id, subjectId);
     if (!enrollment) return res.status(403).json({ error: 'Not enrolled' });
 
-    const progressList = await ProgressModel.findAllByUserAndSubject(req.user.id, subjectId);
-    const lastWatched = await ProgressModel.findLastWatched(req.user.id, subjectId);
+    const [progressList, allVideos, lastWatched] = await Promise.all([
+      ProgressModel.findAllByUserAndSubject(req.user.id, subjectId),
+      VideoModel.findAllBySubjectId(subjectId),
+      ProgressModel.findLastWatched(req.user.id, subjectId),
+    ]);
 
-    const totalVideos = progressList.length;
+    const totalVideos = allVideos.length;
     const completedVideos = progressList.filter(p => p.completed).length;
     const percentage = totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : 0;
 
@@ -115,6 +118,7 @@ const getCourseProgress = async (req, res, next) => {
       progress: progressList,
       completedVideos,
       lastWatchedVideo: lastWatched,
+      totalVideos,
       percentage,
     });
   } catch (err) {
