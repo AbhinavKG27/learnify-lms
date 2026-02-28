@@ -1,4 +1,4 @@
-# 📚 LMS — Learning Management System
+# 📚 learnify-LMS — Learning Management System
 
 > A full-stack web application that enables seamless online learning, course management, and educational content delivery.
 
