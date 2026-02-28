@@ -16,7 +16,7 @@ const HeroSection = () => (
     <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-cta-500/15 rounded-full filter blur-3xl" />
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface-950" />
 
-    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 sm:pt-12">
       <h1 className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl text-primary-900 dark:text-white leading-[1.05] mb-6 animate-fade-up">
         Learn Without{' '}
         <span className="text-gradient">Limits.</span>
