@@ -8,36 +8,35 @@ import { subjectsAPI } from '../lib/api';
 import { useAuth } from '../hooks/useAuth';
 
 const HeroSection = () => (
-  <section className="relative min-h-[82vh] flex items-center justify-center overflow-hidden">
+  <section className="relative min-h-[82vh] flex items-center justify-center overflow-hidden bg-background dark:bg-background-dark">
     {/* Background grid pattern */}
-    <div className="absolute inset-0 bg-hero-pattern opacity-100" />
+    <div className="absolute inset-0 bg-hero-pattern opacity-60 dark:opacity-100" />
     {/* Gradient overlays */}
-    <div className="absolute top-0 left-1/3 w-96 h-96 bg-accent-400/20 rounded-full filter blur-3xl" />
-    <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-cta-500/15 rounded-full filter blur-3xl" />
-    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface-950" />
+    <div className="absolute top-0 left-1/3 w-96 h-96 bg-neon-pink/20 dark:bg-neon-violet/25 rounded-full blur-3xl" />
+    <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-neon-orange/20 dark:bg-neon-accent/20 rounded-full blur-3xl" />
+    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background dark:to-background-dark" />
 
-    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 sm:pt-12">
-      <h1 className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl text-primary-900 dark:text-white leading-[1.05] mb-6 animate-fade-up">
-        Learn Without{' '}
-        <span className="text-gradient">Limits.</span>
+    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 sm:pt-12 hero-neon-glow">
+      <h1 className="font-display font-extrabold text-5xl sm:text-6xl lg:text-7xl text-text-primary dark:text-text-primary-dark leading-[1.05] mb-6 animate-fade-up">
+        Discover the future of{' '}
+        <span className="text-gradient">Learning.</span>
         <br />
-        Master with{' '}
+        Build your skills in{' '}
         <span className="relative">
-          <span className="text-gradient">Purpose.</span>
+          <span className="text-gradient">Neon Flow.</span>
           <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 8" fill="none">
-            <path d="M0 6 Q75 0 150 4 Q225 8 300 2" stroke="#5EB1BF" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.6" />
+            <path d="M0 6 Q75 0 150 4 Q225 8 300 2" stroke="#7B61FF" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.6" />
           </svg>
         </span>
       </h1>
 
-      <p className="text-lg sm:text-xl text-primary-700 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up animate-delay-100">
-        Structured, linear learning paths that unlock step by step. No skipping ahead—
-        just pure, focused progress from beginner to expert.
+      <p className="text-lg sm:text-xl text-text-secondary dark:text-text-secondary-dark max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up animate-delay-100">
+        Immersive, structured learning paths that unlock step by step. Stay focused, stay consistent, and master every topic with momentum.
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up animate-delay-200">
-        <Link href="/register" className="btn-primary text-base px-8 py-3.5 shadow-xl shadow-primary-900/30">
-          Start Learning Free →
+        <Link href="/register" className="btn-primary text-base px-8 py-3.5">
+          Start Learning →
         </Link>
         <Link href="#courses" className="btn-secondary text-base px-8 py-3.5">
           Browse Courses
@@ -52,7 +51,7 @@ const HeroSection = () => (
           { value: '100%', label: 'Free to Start' },
         ].map(stat => (
           <div key={stat.label} className="text-center">
-            <div className="font-display font-bold text-3xl text-primary-900 dark:text-white">{stat.value}</div>
+            <div className="font-display font-bold text-3xl text-text-primary dark:text-text-primary-dark">{stat.value}</div>
             <div className="text-sm text-primary-600 dark:text-slate-500 mt-1">{stat.label}</div>
           </div>
         ))}
@@ -64,10 +63,10 @@ const HeroSection = () => (
 const FeaturesSection = () => (
   <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center mb-16">
-      <h2 className="font-display font-bold text-4xl text-primary-900 dark:text-white mb-4">
+      <h2 className="font-display font-bold text-4xl text-text-primary dark:text-text-primary-dark mb-4">
         Why Learnify Works
       </h2>
-      <p className="text-primary-700 dark:text-slate-400 max-w-xl mx-auto">
+      <p className="text-text-secondary dark:text-text-secondary-dark max-w-xl mx-auto">
         Built around the science of structured learning. Every feature is intentional.
       </p>
     </div>
@@ -111,10 +110,10 @@ const FeaturesSection = () => (
           color: 'violet',
         },
       ].map(f => (
-        <div key={f.title} className="card p-6 hover:border-primary-400 dark:hover:border-primary-700 transition-all hover:-translate-y-0.5 duration-300">
+        <div key={f.title} className="card p-6 hover:border-neon-accent/60 dark:hover:border-neon-violet/60 transition-all hover:-translate-y-0.5 duration-300">
           <div className="text-3xl mb-4">{f.icon}</div>
-          <h3 className="font-display font-bold text-primary-900 dark:text-white text-lg mb-2">{f.title}</h3>
-          <p className="text-primary-700 dark:text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+          <h3 className="font-display font-bold text-text-primary dark:text-text-primary-dark text-lg mb-2">{f.title}</h3>
+          <p className="text-text-secondary dark:text-text-secondary-dark text-sm leading-relaxed">{f.desc}</p>
         </div>
       ))}
     </div>
@@ -185,13 +184,13 @@ export default function HomePage() {
       <FeaturesSection />
 
       {/* Course Catalog */}
-      <section id="courses" className="py-24 bg-surface-100/70 dark:bg-surface-950/60">
+      <section id="courses" className="py-24 bg-gradient-to-b from-transparent via-neon-violet/5 to-transparent dark:via-neon-violet/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-display font-bold text-4xl text-primary-900 dark:text-white mb-4">
+            <h2 className="font-display font-bold text-4xl text-text-primary dark:text-text-primary-dark mb-4">
               Explore Courses
             </h2>
-            <p className="text-primary-700 dark:text-slate-400">
+            <p className="text-text-secondary dark:text-text-secondary-dark">
               Handcrafted learning paths for today's most in-demand skills.
             </p>
           </div>
@@ -225,7 +224,7 @@ export default function HomePage() {
 
           {!loading && subjects.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-primary-600 dark:text-slate-500">No courses available yet.</p>
+              <p className="text-text-secondary dark:text-text-secondary-dark">No courses available yet.</p>
             </div>
           )}
         </div>
@@ -235,15 +234,15 @@ export default function HomePage() {
       <section className="py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="card p-10 glow-brand relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-400/10 to-cta-600/10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-neon-pink/10 via-neon-violet/10 to-neon-orange/10" />
             <div className="relative z-10">
-              <h2 className="font-display font-bold text-4xl text-primary-900 dark:text-white mb-4">
+              <h2 className="font-display font-bold text-4xl text-text-primary dark:text-text-primary-dark mb-4">
                 Ready to Level Up?
               </h2>
-              <p className="text-primary-700 dark:text-slate-400 mb-8 leading-relaxed">
+              <p className="text-text-secondary dark:text-text-secondary-dark mb-8 leading-relaxed">
                 Join thousands of learners mastering in-demand skills with structured, step-by-step courses.
               </p>
-              <Link href={isAuthenticated ? '/dashboard' : '/register'} className="btn-primary text-base px-10 py-3.5 shadow-xl shadow-primary-900/30">
+              <Link href={isAuthenticated ? '/dashboard' : '/register'} className="btn-primary text-base px-10 py-3.5">
                 {isAuthenticated ? 'Go to Dashboard →' : 'Start Free Today →'}
               </Link>
             </div>
