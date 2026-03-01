@@ -5,7 +5,19 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![JavaScript](https://img.shields.io/badge/JavaScript-97.4%25-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![CSS](https://img.shields.io/badge/CSS-2.6%25-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/AbhinavKG27/lms/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/AbhinavKG27/learnify-lms/pulls)
+
+---
+
+## 🌐 Live Deployment
+
+| Service    | URL                                                                 |
+|------------|---------------------------------------------------------------------|
+| 🖥️ Frontend | [learnify-lms-eight.vercel.app](https://learnify-lms-eight.vercel.app) |
+| ⚙️ Backend  | [learnify-lms-sxra.onrender.com](https://learnify-lms-sxra.onrender.com) |
+| 🗄️ Database | [TiDB Cloud](https://tidbcloud.com/) — MySQL-compatible distributed SQL |
+
+> **Note:** The backend is hosted on Render's free tier and may take 30–60 seconds to wake up on the first request.
 
 ---
 
@@ -29,9 +41,9 @@
 
 ## 🔍 Overview
 
-LMS is a full-stack Learning Management System designed to bridge the gap between instructors and learners. It provides a streamlined platform for course creation, enrollment, progress tracking, and content delivery — all in one place.
+Learnify LMS is a full-stack Learning Management System designed to bridge the gap between instructors and learners. It provides a streamlined platform for course creation, enrollment, progress tracking, and content delivery — all in one place.
 
-Whether you're an instructor building courses or a student working through learning materials, LMS delivers a clean and intuitive experience.
+Whether you're an instructor building courses or a student working through learning materials, Learnify LMS delivers a clean and intuitive experience.
 
 ---
 
@@ -50,36 +62,48 @@ Whether you're an instructor building courses or a student working through learn
 ## 🛠 Tech Stack
 
 ### Frontend
-| Technology | Purpose |
-|---|---|
-| React.js | UI framework |
-| CSS | Styling |
-| Axios | HTTP client |
-| React Router | Client-side routing |
+
+| Technology   | Purpose              |
+|--------------|----------------------|
+| React.js     | UI framework         |
+| CSS          | Styling              |
+| Axios        | HTTP client          |
+| React Router | Client-side routing  |
+
+> **Hosted on:** [Vercel](https://vercel.com/)
 
 ### Backend
-| Technology | Purpose |
-|---|---|
-| Node.js | Runtime environment |
-| Express.js | Web framework |
-| MongoDB | Database |
-| Mongoose | ODM for MongoDB |
-| JWT | Authentication tokens |
-| bcrypt | Password hashing |
-| Multer | File uploads |
-| dotenv | Environment configuration |
+
+| Technology | Purpose                    |
+|------------|----------------------------|
+| Node.js    | Runtime environment        |
+| Express.js | Web framework              |
+| JWT        | Authentication tokens      |
+| bcrypt     | Password hashing           |
+| Multer     | File uploads               |
+| dotenv     | Environment configuration  |
+
+> **Hosted on:** [Render](https://render.com/)
+
+### Database
+
+| Technology  | Purpose                                      |
+|-------------|----------------------------------------------|
+| TiDB Cloud  | MySQL-compatible distributed SQL database    |
+
+> **Provider:** [TiDB Cloud](https://tidbcloud.com/) — serverless, scalable, and fully managed.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-lms/
+learnify-lms/
 ├── backend/                  # Node.js + Express REST API
 │   ├── config/               # Database & environment config
 │   ├── controllers/          # Route handler logic
 │   ├── middleware/           # Auth & error handling middleware
-│   ├── models/               # Mongoose schemas
+│   ├── models/               # Database schemas/models
 │   ├── routes/               # API route definitions
 │   ├── utils/                # Helper functions
 │   └── index.js              # Server entry point
@@ -109,7 +133,7 @@ Make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) v16 or higher
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [MongoDB](https://www.mongodb.com/) (local instance or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+- A [TiDB Cloud](https://tidbcloud.com/) account (or any MySQL-compatible database)
 
 ---
 
@@ -118,8 +142,8 @@ Make sure you have the following installed:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/AbhinavKG27/lms.git
-cd lms
+git clone https://github.com/AbhinavKG27/learnify-lms.git
+cd learnify-lms
 ```
 
 2. **Install backend dependencies**
@@ -147,8 +171,8 @@ Create a `.env` file inside the `backend/` directory and populate it with the fo
 PORT=5000
 NODE_ENV=development
 
-# Database
-MONGO_URI=mongodb://localhost:27017/lms
+# Database (TiDB Cloud — MySQL-compatible connection string)
+DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>?ssl=true
 
 # Authentication
 JWT_SECRET=your_jwt_secret_key
@@ -191,19 +215,20 @@ The app will be running at `http://localhost:3000`
 
 ## 📡 API Reference
 
-Base URL: `http://localhost:5000/api`
+**Live Base URL:** `https://learnify-lms-sxra.onrender.com/api`  
+**Local Base URL:** `http://localhost:5000/api`
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/auth/register` | Register a new user |
-| `POST` | `/auth/login` | Login and receive JWT |
-| `GET` | `/courses` | Fetch all available courses |
-| `POST` | `/courses` | Create a new course (Instructor) |
-| `GET` | `/courses/:id` | Get a single course by ID |
-| `PUT` | `/courses/:id` | Update a course (Instructor) |
-| `DELETE` | `/courses/:id` | Delete a course (Instructor) |
-| `POST` | `/courses/:id/enroll` | Enroll in a course (Student) |
-| `GET` | `/users/profile` | Get current user profile |
+| Method   | Endpoint              | Description                         |
+|----------|-----------------------|-------------------------------------|
+| `POST`   | `/auth/register`      | Register a new user                 |
+| `POST`   | `/auth/login`         | Login and receive JWT               |
+| `GET`    | `/courses`            | Fetch all available courses         |
+| `POST`   | `/courses`            | Create a new course (Instructor)    |
+| `GET`    | `/courses/:id`        | Get a single course by ID           |
+| `PUT`    | `/courses/:id`        | Update a course (Instructor)        |
+| `DELETE` | `/courses/:id`        | Delete a course (Instructor)        |
+| `POST`   | `/courses/:id/enroll` | Enroll in a course (Student)        |
+| `GET`    | `/users/profile`      | Get current user profile            |
 
 > Full API documentation coming soon via Postman/Swagger.
 
@@ -237,4 +262,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ---
 
-<p align="center">Made with ❤️ for learners everywhere</p>
+Made with ❤️ for learners everywhere
