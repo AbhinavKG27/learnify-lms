@@ -10,44 +10,59 @@ import { useAuth } from '../hooks/useAuth';
 /* ================= HERO (NO BOX + FULL GRADIENT) ================= */
 const HeroSection = () => (
   <section className="relative min-h-[82vh] flex items-center justify-center overflow-hidden">
-    
-    {/* 🌌 ULTRA SMOOTH FULL-BLEED GRADIENT (NO HARD LINES) */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#14052c_0%,_#070018_40%,_#020010_100%)]" />
 
-    {/* Soft Neon Glow (Properly blended, no harsh edges) */}
-    <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-pink-500/20 blur-[180px] rounded-full" />
-    <div className="absolute -bottom-40 -right-32 w-[550px] h-[550px] bg-violet-500/20 blur-[160px] rounded-full" />
-    <div className="absolute top-1/3 right-1/4 w-[350px] h-[350px] bg-indigo-500/15 blur-[140px] rounded-full" />
+    {/* LIGHT MODE BACKGROUND */}
+    <div className="absolute inset-0 
+      bg-[radial-gradient(ellipse_at_top,_#f5f3ff_0%,_#ede9fe_40%,_#ffffff_100%)]
+      dark:bg-[radial-gradient(ellipse_at_top,_#14052c_0%,_#070018_40%,_#020010_100%)]" 
+    />
 
-    {/* 🧠 IMPORTANT: Smooth fade to next section (removes middle line) */}
-    <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-[#020010]" />
+    {/* Glow Effects */}
+    <div className="absolute -top-40 -left-40 w-[600px] h-[600px] 
+      bg-pink-400/20 dark:bg-pink-500/20 
+      blur-[180px] rounded-full" 
+    />
+    <div className="absolute -bottom-40 -right-32 w-[550px] h-[550px] 
+      bg-violet-400/20 dark:bg-violet-500/20 
+      blur-[160px] rounded-full" 
+    />
 
-    {/* CONTENT */}
+    {/* Smooth fade */}
+    <div className="absolute bottom-0 left-0 w-full h-40 
+      bg-gradient-to-b 
+      from-transparent 
+      to-white 
+      dark:to-[#020010]" 
+    />
+
     <div className="relative z-10 w-full max-w-6xl px-6 sm:px-8 text-center pt-12">
-      
+
       <h1 className="font-display font-extrabold 
         text-4xl sm:text-6xl lg:text-7xl 
         leading-[1.05] 
-        text-white 
-        mb-6 animate-fade-up"
+        text-gray-900 dark:text-white 
+        mb-6"
       >
-        Learn Without {' '}
-        <span className="bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
+        Learn Without{' '}
+        <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
           Limits...
         </span>
         <br />
-        Master With {' '}
-        <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-400 bg-clip-text text-transparent">
+        Master With{' '}
+        <span className="bg-gradient-to-r from-pink-600 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
           Purpose...
         </span>
       </h1>
 
-      <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-up animate-delay-100">
+      <p className="text-lg sm:text-xl 
+        text-gray-600 dark:text-white/70 
+        max-w-2xl mx-auto mb-10 leading-relaxed"
+      >
         Immersive, structured learning paths that unlock step by step. Stay focused,
         stay consistent, and master every topic with momentum.
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up animate-delay-200">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Link
           href="/register"
           className="px-8 py-3.5 rounded-full font-semibold 
@@ -61,29 +76,13 @@ const HeroSection = () => (
         <Link
           href="#courses"
           className="px-8 py-3.5 rounded-full font-semibold 
-          border border-white/20 text-white/90 
-          hover:bg-white/10 transition-all duration-300"
+          border border-gray-300 dark:border-white/20 
+          text-gray-800 dark:text-white/90 
+          hover:bg-gray-100 dark:hover:bg-white/10 
+          transition-all duration-300"
         >
           Browse Courses
         </Link>
-      </div>
-
-      {/* Floating Stats (no divider line) */}
-      <div className="flex flex-wrap justify-center gap-10 mt-16 animate-fade-up animate-delay-300">
-        {[
-          { value: '15+', label: 'Expert Courses' },
-          { value: '150+', label: 'Video Lessons' },
-          { value: '100%', label: 'Free to Start' },
-        ].map(stat => (
-          <div key={stat.label} className="text-center">
-            <div className="font-display font-bold text-3xl text-white">
-              {stat.value}
-            </div>
-            <div className="text-sm text-white/60 mt-1">
-              {stat.label}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   </section>
@@ -94,14 +93,22 @@ const FeaturesSection = () => (
   <section className="py-24 relative">
     
     {/* CONTINUE SAME GRADIENT TO REMOVE MIDDLE LINE */}
-    <div className="absolute inset-0 bg-gradient-to-b from-[#020010] via-[#060018] to-[#030012]" />
-
+    <div className="absolute inset-0 
+      bg-gradient-to-b 
+      from-white 
+      via-gray-50 
+      to-gray-100 
+      dark:from-[#020010] 
+      dark:via-[#060018] 
+      dark:to-[#030012]" 
+    />
     <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
-        <h2 className="font-display font-bold text-4xl text-white mb-4">
+        <h2 className="font-display font-bold text-4xl 
+          text-gray-900 dark:text-white mb-4">
           Why Learnify Works
         </h2>
-        <p className="text-white/70 max-w-xl mx-auto">
+        <p className="text-gray-600 dark:text-white/70 max-w-xl mx-auto">
           Built around the science of structured learning. Every feature is intentional.
         </p>
       </div>
@@ -141,17 +148,30 @@ const FeaturesSection = () => (
         ].map(f => (
           <div
             key={f.title}
-            className="card p-6 backdrop-blur-xl bg-white/5 border border-white/10 hover:border-pink-400/40 transition-all duration-300"
+            className="p-6 rounded-xl 
+            backdrop-blur-xl 
+            bg-white dark:bg-white/5 
+            border border-gray-200 dark:border-white/10 
+            hover:border-pink-400/40 
+            transition-all duration-300"
           >
             <div className="text-3xl mb-4">{f.icon}</div>
-            <h3 className="font-display font-bold text-white text-lg mb-2">{f.title}</h3>
-            <p className="text-white/70 text-sm leading-relaxed">{f.desc}</p>
+            <h3 className="font-display font-bold 
+              text-gray-900 dark:text-white 
+              text-lg mb-2"
+            >
+              {f.title}
+            </h3>
+            <p className="text-gray-600 dark:text-white/70 text-sm leading-relaxed">
+              {f.desc}
+            </p>
           </div>
         ))}
       </div>
     </div>
   </section>
 );
+
 
 export default function HomePage() {
   const { isAuthenticated } = useAuth();
@@ -209,14 +229,21 @@ export default function HomePage() {
 
       {/* 🔥 COURSES — NO HARD BACKGROUND (REMOVES LINE) */}
       <section id="courses" className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030012] via-[#040016] to-[#020010]" />
+        <div className="absolute inset-0 
+            bg-gradient-to-b 
+          from-gray-100 
+          via-white 
+          to-white 
+          dark:from-[#030012] 
+          dark:via-[#040016] 
+          dark:to-[#020010]" />
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-display font-bold text-4xl text-white mb-4">
+            <h2 className="font-display font-bold text-4xl text-gray-900 dark:text-white mb-4">
               Explore Courses
             </h2>
-            <p className="text-white/70">
+            <p className="text-gray-600 dark:text-white/70">
               Handcrafted learning paths for today's most in-demand skills.
             </p>
           </div>
