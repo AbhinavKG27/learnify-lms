@@ -195,7 +195,7 @@ export default function HomePage() {
   }, [isAuthenticated, router, showToast]);
 
   return (
-    <Layout title="Learnify — Learn Anything, Master Everything">
+    <Layout title="Learnify — LMS">
       {toast && (
         <Toast
           message={toast.message}
