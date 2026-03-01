@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -21,121 +21,145 @@ export default function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const router = useRouter();
-  const [mobileOpen, setMobileOpen] = useState(false);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = async () => {
     await logout();
     router.push('/');
   };
 
+  // Close dropdown on outside click (Works for Mobile + Desktop)
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-neon-violet/25 dark:border-neon-violet/35 bg-background/80 dark:bg-background-dark/80 transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-neon-violet/25 dark:border-neon-violet/35 bg-background/85 dark:bg-background-dark/85 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Perfect vertical alignment container */}
+        
+        {/* MAIN NAV BAR */}
         <div className="flex items-center justify-between h-16">
           
-          {/* ===== BRAND / LOGO (FIXED ALIGNMENT + CURVED NEON) ===== */}
+          {/* ===== LOGO + NAME ===== */}
           <Link href="/" className="flex items-center gap-3 group select-none">
-            
-            {/* Curvy Neon Logo Shell */}
             <div className="
-  relative 
-  w-11 h-11 
-  flex items-center justify-center 
-  rounded-2xl 
-  bg-gradient-to-br from-neon-pink via-neon-violet to-purple-600
-  shadow-lg shadow-neon-pink/30
-  ring-1 ring-white/10
-  overflow-hidden
-  backdrop-blur-sm
-  transition-all duration-300 
-  group-hover:scale-105
-">
-              
-              {/* Logo Image (Perfect Fit) */}
+              relative w-11 h-11 flex items-center justify-center
+              rounded-2xl
+              bg-gradient-to-br from-neon-pink via-neon-violet to-purple-600
+              shadow-lg shadow-neon-pink/30
+              ring-1 ring-white/10
+              overflow-hidden
+              transition-all duration-300
+              group-hover:scale-105
+            ">
               <Image
-            src="/logo.png"
-            alt="Learnify logo"
-            width={28}
-            height={28}
-            priority
-            className="
-              w-7 h-7 
-              object-contain 
-              rounded-xl 
-              p-0.5 
-              bg-transparent
-              mix-blend-normal
-              "
-            />
+                src="/logo.png"
+                alt="Learnify logo"
+                width={26}
+                height={26}
+                priority
+                className="w-6 h-6 object-contain rounded-full"
+              />
             </div>
 
-            {/* Brand Text (Perfect Baseline Alignment) */}
+            {/* ALWAYS visible (mobile + desktop) */}
             <span className="font-display font-bold text-xl tracking-tight leading-none text-text-primary dark:text-text-primary-dark">
               Learnify
             </span>
           </Link>
 
-          {/* CENTER NAV */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* ===== DESKTOP NAV ===== */}
+          <div className="hidden md:flex items-center gap-2">
             <Link href="/#courses" className="btn-ghost text-sm">Courses</Link>
             {isAuthenticated && (
               <Link href="/dashboard" className="btn-ghost text-sm">Dashboard</Link>
             )}
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* ===== RIGHT SIDE (MOBILE + DESKTOP UNIFIED) ===== */}
+          <div className="flex items-center gap-2 md:gap-3">
+            
+            {/* THEME TOGGLE (VISIBLE ON MOBILE NOW) */}
             <button
               onClick={toggleTheme}
               className="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-xs font-semibold border border-neon-violet/35 dark:border-neon-violet/40 bg-surface/90 dark:bg-surface-dark/90 text-text-primary dark:text-text-primary-dark transition-all duration-300 hover:scale-105"
               aria-label="Toggle theme"
             >
               <ThemeIcon isDark={isDark} />
-              {isDark ? 'Light' : 'Dark'}
+              <span className="hidden sm:inline">
+                {isDark ? 'Light' : 'Dark'}
+              </span>
             </button>
 
+            {/* ===== USER (REPLACES HAMBURGER ON MOBILE) ===== */}
             {isAuthenticated ? (
-              <div className="relative">
+              <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-2xl bg-surface/90 dark:bg-surface-dark/90 border border-neon-violet/35 dark:border-neon-violet/40 transition-all hover:scale-[1.02]"
+                  className="flex items-center gap-2.5 pl-2.5 pr-3 py-2 rounded-2xl 
+                  bg-surface/90 dark:bg-surface-dark/90 
+                  border border-neon-violet/35 dark:border-neon-violet/40 
+                  transition-all hover:scale-[1.02]"
                 >
-                  <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-neon-pink to-neon-violet flex items-center justify-center text-xs font-bold text-white">
+                  {/* Avatar */}
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-neon-pink to-neon-violet flex items-center justify-center text-xs font-bold text-white shadow-md">
                     {user?.name?.charAt(0).toUpperCase()}
                   </div>
-                  <span className="text-sm text-text-primary dark:text-text-primary-dark font-medium">
+
+                  {/* USER NAME (NOW VISIBLE ON MOBILE) */}
+                  <span className="text-sm text-text-primary dark:text-text-primary-dark font-medium max-w-[90px] truncate">
                     {user?.name}
                   </span>
                 </button>
 
+                {/* DROPDOWN MENU (Mobile + Desktop) */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 card shadow-xl shadow-black/30 py-1 z-50">
-                    <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary dark:text-text-secondary-dark hover:bg-neon-violet/10 dark:hover:bg-white/5 transition-colors">
-                      Dashboard
-                    </Link>
-                    <hr className="border-neon-violet/20 dark:border-neon-violet/30 my-1" />
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-neon-pink hover:bg-neon-pink/10 transition-colors"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                )}
+  <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-surface dark:bg-surface-dark border border-neon-violet/30 shadow-xl py-1 z-50">
+    
+    {/* 👇 COURSES - MOBILE ONLY */}
+    <Link
+  href="/#courses"
+  onClick={() => setDropdownOpen(false)}
+  className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-neon-violet/10 md:hidden"
+>
+  📚 Courses
+</Link>
+
+    {/* Dashboard (All devices) */}
+    <Link
+      href="/dashboard"
+      onClick={() => setDropdownOpen(false)}
+      className="block px-4 py-2.5 text-sm hover:bg-neon-violet/10"
+    >
+      Dashboard
+    </Link>
+
+    <hr className="border-neon-violet/20 my-1" />
+
+    <button
+      onClick={handleLogout}
+      className="w-full text-left px-4 py-2.5 text-sm text-neon-pink hover:bg-neon-pink/10"
+    >
+      Sign Out
+    </button>
+  </div>
+)}
               </div>
             ) : (
-              <>
+              <div className="flex items-center gap-2">
                 <Link href="/login" className="btn-ghost text-sm">Sign In</Link>
                 <Link href="/register" className="btn-primary text-sm">Get Started</Link>
-              </>
+              </div>
             )}
           </div>
-
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden btn-ghost p-2">
-            ☰
-          </button>
         </div>
       </div>
     </nav>
