@@ -134,13 +134,17 @@ export default function Navbar() {
 </Link>
 
     {/* Dashboard (All devices) */}
-    <Link
-      href="/dashboard"
-      onClick={() => setDropdownOpen(false)}
-      className="block px-4 py-2.5 text-sm hover:bg-neon-violet/10"
-    >
-      Dashboard
-    </Link>
+    <button
+  onClick={() => {
+    setDropdownOpen(false);
+    router.push("/dashboard");
+  }}
+  className="w-full text-left px-4 py-2.5 text-sm 
+  text-neon-pink hover:bg-neon-pink/10 
+  transition-all duration-200"
+>
+  Dashboard
+</button>
 
     <hr className="border-neon-violet/20 my-1" />
 
