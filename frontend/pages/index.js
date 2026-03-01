@@ -31,14 +31,14 @@ const HeroSection = () => (
         text-white 
         mb-6 animate-fade-up"
       >
-        Discover the future of{' '}
+        Learn Without {' '}
         <span className="bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
-          Learning.
+          Limits...
         </span>
         <br />
-        Build your skills in{' '}
+        Master With {' '}
         <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-400 bg-clip-text text-transparent">
-          Neon Flow.
+          Purpose...
         </span>
       </h1>
 
@@ -195,7 +195,7 @@ export default function HomePage() {
   }, [isAuthenticated, router, showToast]);
 
   return (
-    <Layout title="Learnify — LMS">
+    <Layout title="Learnify-LMS">
       {toast && (
         <Toast
           message={toast.message}

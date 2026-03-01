@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
 
           <p className="text-sm text-text-secondary dark:text-text-secondary-dark text-center md:text-left">
-            © {new Date().getFullYear()} Learnify-LMS. Built with Next.js & Node.js by aBhi And AI.
+            © {new Date().getFullYear()} Learnify-LMS. Built with Next.js & Node.js by Abhi And AI.
           </p>
 
           <div className="flex gap-6">
