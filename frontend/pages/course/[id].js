@@ -7,6 +7,7 @@ import VideoPlayer from '../../components/video/VideoPlayer';
 import { PageLoader } from '../../components/ui/Spinner';
 import { subjectsAPI, videosAPI } from '../../lib/api';
 import { useAuth } from '../../hooks/useAuth';
+import Toast from '../../components/ui/Toast';
 
 const MenuIcon = () => (
   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +37,7 @@ export default function CoursePage() {
   const [nextVideoId, setNextVideoId] = useState(null);
   const [videoLoading, setVideoLoading] = useState(false);
   const [progressPercent, setProgressPercent] = useState(0);
-
+  const [toast, setToast] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   useEffect(() => {
@@ -125,9 +126,9 @@ export default function CoursePage() {
       setActiveVideoId(videoId);
     } catch (err) {
       if (err.response?.data?.code === 'VIDEO_LOCKED') {
-        console.warn('[CoursePage] Video is locked:', videoId);
-        alert('Complete previous videos first to unlock this one!');
-      } else {
+  console.warn('[CoursePage] Video is locked:', videoId);
+  setToast({ message: 'Complete previous videos first to unlock this one!', type: 'error' });
+} else {
         console.error('[CoursePage] Failed to load video:', err?.response?.data || err.message);
       }
     } finally {
@@ -261,6 +262,13 @@ export default function CoursePage() {
       <Head><title>{subject?.name || 'Course'} — Learnify</title></Head>
       <div className="min-h-screen flex flex-col bg-surface-100 dark:bg-surface-950">
         <Navbar />
+        {toast && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onClose={() => setToast(null)}
+          />
+        )}
 
         <div className="flex flex-1 pt-16 overflow-hidden h-[calc(100vh-64px)]">
           {/* Sidebar */}
@@ -350,7 +358,7 @@ export default function CoursePage() {
                   <div className="absolute inset-0 bg-gradient-to-br from-accent-400/10 to-cta-500/10" />
                   <div className="relative z-10">
                     <div className="text-4xl mb-3">🎉</div>
-                    <h3 className="font-display font-bold text-xl text-primary-900 dark:text-white mb-2">Course Complete!</h3>
+                    <h3 className="font-display font-bold text-xl text-primary-900 dark:text-white mb-2">Course Completed!</h3>
                     <p className="text-primary-700 dark:text-slate-400 text-sm">Congratulations! You've mastered the entire course.</p>
                   </div>
                 </div>
