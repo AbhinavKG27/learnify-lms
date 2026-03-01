@@ -20,7 +20,7 @@ export default function Document() {
         <meta name="theme-color" content="#0B0220" />
       </Head>
 
-      <body className="transition-colors duration-300 bg-background text-text-primary dark:bg-background-dark dark:text-text-primary-dark antialiased">
+      <body className="bg-[#020010] text-white transition-colors duration-300">
         <Main />
         <NextScript />
       </body>
