@@ -5,12 +5,6 @@ import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../hooks/useTheme';
 
-const BookIcon = () => (
-  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-  </svg>
-);
-
 const ThemeIcon = ({ isDark }) => (
   isDark ? (
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,50 +30,98 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-100/90 dark:bg-surface-950/85 backdrop-blur-xl border-b border-primary-300/70 dark:border-primary-800/60 transition-colors duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-neon-violet/25 dark:border-neon-violet/35 bg-background/80 dark:bg-background-dark/80 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Perfect vertical alignment container */}
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-accent-400 to-cta-500 rounded-xl flex items-center justify-center shadow-lg shadow-primary-900/30 transition-shadow">
+          
+          {/* ===== BRAND / LOGO (FIXED ALIGNMENT + CURVED NEON) ===== */}
+          <Link href="/" className="flex items-center gap-3 group select-none">
+            
+            {/* Curvy Neon Logo Shell */}
+            <div className="
+  relative 
+  w-11 h-11 
+  flex items-center justify-center 
+  rounded-2xl 
+  bg-gradient-to-br from-neon-pink via-neon-violet to-purple-600
+  shadow-lg shadow-neon-pink/30
+  ring-1 ring-white/10
+  overflow-hidden
+  backdrop-blur-sm
+  transition-all duration-300 
+  group-hover:scale-105
+">
+              
+              {/* Logo Image (Perfect Fit) */}
               <Image
-                src="/Learnify-logo.png"
-                  alt="Learnify-logo"
-                    width={20}
-                      height={20}
-                        className="w-5 h-5"
-              />
+            src="/logo.png"
+            alt="Learnify logo"
+            width={28}
+            height={28}
+            priority
+            className="
+              w-7 h-7 
+              object-contain 
+              rounded-xl 
+              p-0.5 
+              bg-transparent
+              mix-blend-normal
+              "
+            />
             </div>
-            <span className="font-display font-bold text-xl text-primary-900 dark:text-white tracking-tight">Learnify</span>
+
+            {/* Brand Text (Perfect Baseline Alignment) */}
+            <span className="font-display font-bold text-xl tracking-tight leading-none text-text-primary dark:text-text-primary-dark">
+              Learnify
+            </span>
           </Link>
 
+          {/* CENTER NAV */}
           <div className="hidden md:flex items-center gap-1">
             <Link href="/#courses" className="btn-ghost text-sm">Courses</Link>
-            {isAuthenticated && <Link href="/dashboard" className="btn-ghost text-sm">Dashboard</Link>}
+            {isAuthenticated && (
+              <Link href="/dashboard" className="btn-ghost text-sm">Dashboard</Link>
+            )}
           </div>
 
+          {/* RIGHT SIDE */}
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={toggleTheme}
-              className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold border border-primary-300 dark:border-primary-700 bg-surface-50 dark:bg-surface-900 text-primary-800 dark:text-slate-100 transition-all duration-300"
+              className="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-xs font-semibold border border-neon-violet/35 dark:border-neon-violet/40 bg-surface/90 dark:bg-surface-dark/90 text-text-primary dark:text-text-primary-dark transition-all duration-300 hover:scale-105"
               aria-label="Toggle theme"
             >
               <ThemeIcon isDark={isDark} />
               {isDark ? 'Light' : 'Dark'}
             </button>
+
             {isAuthenticated ? (
               <div className="relative">
-                <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-xl bg-surface-50 dark:bg-surface-900 border border-primary-300 dark:border-primary-700 transition-all">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-400 to-cta-500 flex items-center justify-center text-xs font-bold text-white">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-2xl bg-surface/90 dark:bg-surface-dark/90 border border-neon-violet/35 dark:border-neon-violet/40 transition-all hover:scale-[1.02]"
+                >
+                  <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-neon-pink to-neon-violet flex items-center justify-center text-xs font-bold text-white">
                     {user?.name?.charAt(0).toUpperCase()}
                   </div>
-                  <span className="text-sm text-primary-900 dark:text-slate-100 font-medium">{user?.name}</span>
+                  <span className="text-sm text-text-primary dark:text-text-primary-dark font-medium">
+                    {user?.name}
+                  </span>
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 card shadow-xl shadow-primary-900/20 py-1 z-50">
-                    <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-primary-800 dark:text-slate-300 hover:bg-primary-100 dark:hover:bg-white/5 transition-colors">Dashboard</Link>
-                    <hr className="border-primary-200 dark:border-primary-800 my-1" />
-                    <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-cta-600 hover:bg-cta-500/10 transition-colors">Sign Out</button>
+                  <div className="absolute right-0 mt-2 w-48 card shadow-xl shadow-black/30 py-1 z-50">
+                    <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary dark:text-text-secondary-dark hover:bg-neon-violet/10 dark:hover:bg-white/5 transition-colors">
+                      Dashboard
+                    </Link>
+                    <hr className="border-neon-violet/20 dark:border-neon-violet/30 my-1" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-neon-pink hover:bg-neon-pink/10 transition-colors"
+                    >
+                      Sign Out
+                    </button>
                   </div>
                 )}
               </div>
@@ -91,27 +133,11 @@ export default function Navbar() {
             )}
           </div>
 
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden btn-ghost p-2">☰</button>
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden btn-ghost p-2">
+            ☰
+          </button>
         </div>
       </div>
-
-      {mobileOpen && (
-        <div className="md:hidden bg-surface-100 dark:bg-surface-950 border-b border-primary-300 dark:border-primary-800 px-4 py-4 space-y-2">
-          <button onClick={toggleTheme} className="w-full btn-secondary text-sm">Switch to {isDark ? 'Light' : 'Dark'} Mode</button>
-          <Link href="/#courses" onClick={() => setMobileOpen(false)} className="block btn-ghost py-2.5 text-sm">Courses</Link>
-          {isAuthenticated ? (
-            <>
-              <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="block btn-ghost py-2.5 text-sm">Dashboard</Link>
-              <button onClick={handleLogout} className="w-full text-left btn-ghost py-2.5 text-sm text-cta-600">Sign Out</button>
-            </>
-          ) : (
-            <div className="flex gap-3 pt-2">
-              <Link href="/login" className="btn-secondary text-sm flex-1 text-center">Sign In</Link>
-              <Link href="/register" className="btn-primary text-sm flex-1 text-center">Get Started</Link>
-            </div>
-          )}
-        </div>
-      )}
     </nav>
   );
 }

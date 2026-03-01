@@ -24,6 +24,7 @@
   body {
     font-family: 'DM Sans', sans-serif;
     background-color: theme('colors.background.DEFAULT');
+    background-image: radial-gradient(circle at 15% 20%, rgba(255, 78, 205, 0.12), transparent 35%), radial-gradient(circle at 80% 10%, rgba(123, 97, 255, 0.2), transparent 32%), linear-gradient(145deg, #F6F4FF 0%, #EEE8FF 100%);
     color: theme('colors.text-primary.DEFAULT');
     -webkit-font-smoothing: antialiased;
     transition: background-color 300ms ease, color 300ms ease;
@@ -31,6 +32,7 @@
 
   .dark body {
     background-color: theme('colors.background.dark');
+    background-image: radial-gradient(circle at 18% 16%, rgba(255, 78, 205, 0.2), transparent 36%), radial-gradient(circle at 84% 8%, rgba(123, 97, 255, 0.28), transparent 36%), linear-gradient(140deg, #0B0220 0%, #14062E 70%, #1A0B3A 100%);
     color: theme('colors.text-primary.dark');
   }
 
@@ -41,11 +43,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-btn-primary-gradient bg-[length:200%_200%] bg-left text-white font-semibold py-2.5 px-6 rounded-2xl transition-all duration-300 shadow-[0_0_24px_-8px_rgba(255,46,159,0.7)] hover:scale-[1.03] hover:shadow-[0_0_32px_-8px_rgba(255,122,24,0.75)] hover:bg-right active:scale-100;
+    @apply bg-btn-primary-gradient bg-[length:200%_200%] bg-left text-white font-semibold py-2.5 px-6 rounded-[999px] transition-all duration-300 shadow-[0_0_24px_-8px_rgba(255,46,159,0.7)] hover:scale-[1.03] hover:shadow-[0_0_32px_-8px_rgba(255,122,24,0.75)] hover:bg-right active:scale-100;
   }
 
   .btn-secondary {
-    @apply relative bg-transparent text-text-primary dark:text-text-primary-dark font-semibold py-2.5 px-6 rounded-2xl border border-transparent transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_28px_-10px_rgba(123,97,255,0.65)];
+    @apply relative bg-transparent text-text-primary dark:text-text-primary-dark font-semibold py-2.5 px-6 rounded-[999px] border border-transparent transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_28px_-10px_rgba(123,97,255,0.65)];
     background-image: linear-gradient(theme('colors.background.DEFAULT'), theme('colors.background.DEFAULT')), linear-gradient(90deg, #FF2E9F 0%, #FF7A18 100%);
     background-origin: border-box;
     background-clip: padding-box, border-box;
@@ -56,15 +58,15 @@
   }
 
   .btn-ghost {
-    @apply text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark hover:bg-neon-violet/10 py-2 px-4 rounded-xl transition-all duration-300;
+    @apply text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark hover:bg-neon-violet/10 py-2 px-4 rounded-2xl transition-all duration-300;
   }
 
   .card {
-    @apply bg-surface dark:bg-surface-dark border border-neon-violet/20 dark:border-neon-violet/30 rounded-2xl overflow-hidden transition-colors duration-300;
+    @apply bg-surface dark:bg-surface-dark border border-neon-violet/20 dark:border-neon-violet/30 rounded-3xl overflow-hidden transition-colors duration-300;
   }
 
   .input-field {
-    @apply w-full bg-surface dark:bg-surface-dark border border-neon-violet/25 dark:border-neon-violet/35 rounded-xl px-4 py-3 text-text-primary dark:text-text-primary-dark placeholder-text-secondary dark:placeholder-text-secondary-dark focus:outline-none focus:border-neon-accent/70 focus:ring-1 focus:ring-neon-accent/40 transition-all duration-300;
+    @apply w-full bg-surface dark:bg-surface-dark border border-neon-violet/25 dark:border-neon-violet/35 rounded-2xl px-4 py-3 text-text-primary dark:text-text-primary-dark placeholder-text-secondary dark:placeholder-text-secondary-dark focus:outline-none focus:border-neon-accent/70 focus:ring-1 focus:ring-neon-accent/40 transition-all duration-300;
   }
 
   .label {
@@ -72,7 +74,20 @@
   }
 
   .glass {
-    @apply bg-white/70 dark:bg-white/5 backdrop-blur-sm border border-neon-violet/20 dark:border-neon-violet/30 rounded-2xl;
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-sm border border-neon-violet/20 dark:border-neon-violet/30 rounded-3xl;
+  }
+
+  .brand-logo-shell {
+    @apply relative overflow-hidden rounded-2xl border border-neon-violet/35 dark:border-neon-violet/45 bg-brand-primary-gradient shadow-[0_0_30px_-10px_rgba(255,78,205,0.7)];
+  }
+
+  .brand-logo-shell::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 0.9rem;
+    background: linear-gradient(150deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+    pointer-events: none;
   }
 
   .badge {
@@ -129,5 +144,10 @@
 }
 
 video {
-  border-radius: 12px;
+  border-radius: 18px;
+}
+
+
+#__next {
+  min-height: 100vh;
 }
