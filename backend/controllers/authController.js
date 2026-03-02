@@ -23,7 +23,7 @@ const register = async (req, res, next) => {
     }
 
     if (password.length < 6) {
-      return res.status(400).json({ error: 'Password must be at least 6 characters' });
+      return res.status(400).json({ error: 'Password must be at least 6 characters Or Your Account Burns' });
     }
 
     const existing = await UserModel.findByEmail(email);
@@ -39,7 +39,7 @@ const register = async (req, res, next) => {
     await RefreshTokenModel.create(user.id, refreshToken, expiresAt);
 
     res.status(201).json({
-      message: 'Registration successful',
+      message: 'Registration successful !!',
       user: { id: user.id, name: user.name, email: user.email },
       accessToken,
       refreshToken,
@@ -59,12 +59,12 @@ const login = async (req, res, next) => {
 
     const user = await UserModel.findByEmail(email);
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials !!' });
     }
 
     const valid = await UserModel.verifyPassword(password, user.password_hash);
     if (!valid) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials !!' });
     }
 
     const { accessToken, refreshToken } = generateTokens(user);
@@ -74,7 +74,7 @@ const login = async (req, res, next) => {
     await RefreshTokenModel.create(user.id, refreshToken, expiresAt);
 
     res.json({
-      message: 'Login successful',
+      message: 'Login successful !!',
       user: { id: user.id, name: user.name, email: user.email },
       accessToken,
       refreshToken,

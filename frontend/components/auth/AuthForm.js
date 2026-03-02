@@ -37,7 +37,7 @@ export default function AuthForm({ mode, onSubmit, loading, error }) {
             value={formData.name}
             onChange={handleChange}
             className="input-field"
-            placeholder="John Doe"
+            placeholder="Your Name Please..."
             required
             autoComplete="name"
           />
@@ -81,7 +81,7 @@ export default function AuthForm({ mode, onSubmit, loading, error }) {
           </button>
         </div>
         {!isLogin && (
-          <p className="text-xs text-slate-500 mt-1.5">Minimum 6 characters</p>
+          <p className="text-xs text-slate-500 mt-1.5">Minimum 6 characters Or Your account burns</p>
         )}
       </div>
 
