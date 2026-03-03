@@ -24,10 +24,10 @@ const pool = mysql.createPool({
 const testConnection = async () => {
   try {
     const conn = await pool.getConnection();
-    console.log('✅ TiDB MySQL connected successfully (SSL Enabled)');
+    console.log('✅ Database connected successfully (SSL Enabled)');
     conn.release();
   } catch (err) {
-    console.error('❌ MySQL/TiDB connection failed:', err.message);
+    console.error('❌ Database connection failed:', err.message);
     process.exit(1);
   }
 };

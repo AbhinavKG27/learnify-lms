@@ -125,13 +125,21 @@ export default function Navbar() {
   <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-surface dark:bg-surface-dark border border-neon-violet/30 shadow-xl py-1 z-50">
     
     {/* 👇 COURSES - MOBILE ONLY */}
-    <Link
-  href="/#courses"
-  onClick={() => setDropdownOpen(false)}
-  className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-neon-violet/10 md:hidden"
+
+
+<button
+  onClick={() => {
+    setDropdownOpen(false);
+    router.push("/courses");
+  }}
+  className="w-full text-left px-4 py-2.5 text-sm 
+  text-neon-pink hover:bg-neon-pink/10 
+  transition-all duration-200"
 >
   📚 Courses
-</Link>
+</button>
+
+<hr className="border-neon-violet/20 my-1" />
 
     {/* Dashboard (All devices) */}
     <button
