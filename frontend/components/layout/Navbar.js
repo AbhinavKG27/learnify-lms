@@ -130,7 +130,7 @@ export default function Navbar() {
 <button
   onClick={() => {
     setDropdownOpen(false);
-    router.push("/courses");
+    router.push("/#courses");
   }}
   className="w-full text-left px-4 py-2.5 text-sm 
   text-neon-pink hover:bg-neon-pink/10 
