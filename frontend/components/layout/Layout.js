@@ -1,5 +1,6 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
+import AppBackground from './AppBackground';
 import Head from 'next/head';
 
 export default function Layout({ children, title = 'Learnify LMS', description }) {
@@ -11,13 +12,13 @@ export default function Layout({ children, title = 'Learnify LMS', description }
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="min-h-screen flex flex-col bg-background dark:bg-background-dark transition-colors duration-300">
+      <AppBackground>
         <Navbar />
         <main className="flex-1 pt-16">
           {children}
         </main>
         <Footer />
-      </div>
+      </AppBackground>
     </>
   );
 }

@@ -42,12 +42,12 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-neon-violet/25 dark:border-neon-violet/35 bg-background/85 dark:bg-background-dark/85 transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/55 bg-white/55 shadow-[0_12px_40px_-30px_rgba(37,20,93,0.8)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-[#060019]/55">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* MAIN NAV BAR */}
         <div className="flex items-center justify-between h-16">
-          
+
           {/* ===== LOGO + NAME ===== */}
           <Link href="/" className="flex items-center gap-3 group select-none">
             <div className="
@@ -86,11 +86,11 @@ export default function Navbar() {
 
           {/* ===== RIGHT SIDE (MOBILE + DESKTOP UNIFIED) ===== */}
           <div className="flex items-center gap-2 md:gap-3">
-            
+
             {/* THEME TOGGLE (VISIBLE ON MOBILE NOW) */}
             <button
               onClick={toggleTheme}
-              className="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-xs font-semibold border border-neon-violet/35 dark:border-neon-violet/40 bg-surface/90 dark:bg-surface-dark/90 text-text-primary dark:text-text-primary-dark transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-xs font-semibold border border-neon-violet/35 dark:border-neon-violet/40 bg-white/55 dark:bg-white/5 text-text-primary dark:text-text-primary-dark shadow-sm backdrop-blur transition-all duration-300 hover:scale-105 hover:border-neon-pink/45"
               aria-label="Toggle theme"
             >
               <ThemeIcon isDark={isDark} />
@@ -104,10 +104,10 @@ export default function Navbar() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2.5 pl-2.5 pr-3 py-2 rounded-2xl 
-                  bg-surface/90 dark:bg-surface-dark/90 
-                  border border-neon-violet/35 dark:border-neon-violet/40 
-                  transition-all hover:scale-[1.02]"
+                  className="flex items-center gap-2.5 pl-2.5 pr-3 py-2 rounded-2xl
+                  bg-white/55 dark:bg-white/5
+                  border border-neon-violet/35 dark:border-neon-violet/40
+                  shadow-sm backdrop-blur transition-all hover:scale-[1.02] hover:border-neon-pink/45"
                 >
                   {/* Avatar */}
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-neon-pink to-neon-violet flex items-center justify-center text-xs font-bold text-white shadow-md">
@@ -122,8 +122,8 @@ export default function Navbar() {
 
                 {/* DROPDOWN MENU (Mobile + Desktop) */}
                 {dropdownOpen && (
-  <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-surface dark:bg-surface-dark border border-neon-violet/30 shadow-xl py-1 z-50">
-    
+  <div className="absolute right-0 mt-2 w-56 rounded-3xl border border-white/60 bg-white/80 py-2 shadow-[0_24px_80px_-40px_rgba(37,20,93,0.85)] backdrop-blur-2xl z-50 dark:border-white/10 dark:bg-[#0b0624]/90">
+
     {/* 👇 COURSES - MOBILE ONLY */}
 
 
@@ -132,8 +132,8 @@ export default function Navbar() {
     setDropdownOpen(false);
     router.push("/#courses");
   }}
-  className="w-full text-left px-4 py-2.5 text-sm 
-  text-neon-pink hover:bg-neon-pink/10 
+  className="w-full text-left px-4 py-2.5 text-sm
+  text-neon-pink hover:bg-neon-pink/10
   transition-all duration-200"
 >
   📚 Courses
@@ -147,8 +147,8 @@ export default function Navbar() {
     setDropdownOpen(false);
     router.push(dashboardPath);
   }}
-  className="w-full text-left px-4 py-2.5 text-sm 
-  text-neon-pink hover:bg-neon-pink/10 
+  className="w-full text-left px-4 py-2.5 text-sm
+  text-neon-pink hover:bg-neon-pink/10
   transition-all duration-200"
 >
   {user?.role === 'INSTRUCTOR' ? 'Instructor Dashboard' : 'Student Dashboard'}

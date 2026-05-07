@@ -10,8 +10,10 @@ module.exports = {
     extend: {
       colors: {
         background: {
-          DEFAULT: '#F6F4FF',
-          dark: '#0B0220',
+          DEFAULT: '#F8F6FF',
+          dark: '#030014',
+          elevated: '#F2ECFF',
+          ink: '#060019',
         },
         surface: {
           DEFAULT: '#FFFFFF',
@@ -36,6 +38,7 @@ module.exports = {
           orange: '#FF7A18',
           violet: '#7B61FF',
           accent: '#FF4ECD',
+          cyan: '#22D3EE',
         },
         primary: {
           50: '#F5F1FF',
@@ -100,6 +103,7 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'btn-primary-gradient': 'linear-gradient(90deg, #FF2E9F 0%, #FF7A18 100%)',
         'brand-primary-gradient': 'linear-gradient(120deg, #FF2E9F 0%, #7B61FF 100%)',
+        'app-aurora': 'radial-gradient(circle at 18% 12%, rgba(255,46,159,0.22), transparent 30%), radial-gradient(circle at 82% 4%, rgba(123,97,255,0.28), transparent 32%), radial-gradient(circle at 52% 92%, rgba(34,211,238,0.15), transparent 30%)',
         'hero-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235EB1BF' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
       },
     },
