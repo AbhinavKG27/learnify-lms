@@ -19,9 +19,13 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
+// Health check - Updated for clarity
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.status(200).json({ 
+    success: true,
+    message: 'LMS Backend Service is operational', 
+    timestamp: new Date().toISOString() 
+  });
 });
 
 // Routes
@@ -34,11 +38,23 @@ app.use(notFound);
 app.use(errorHandler);
 
 const start = async () => {
-  await testConnection();
-  app.listen(PORT, () => {
-    console.log(`🚀 LMS Server running on http://localhost:${PORT}`);
-    console.log(`📚 Environment: ${process.env.NODE_ENV || 'development'}`);
-  });
+  try {
+    // Ensuring DB connection is verified before starting the server
+    await testConnection();
+    console.log('✅ Database connection established successfully.');
+
+    app.listen(PORT, () => {
+      console.log(`--- LMS Service Startup ---`);
+      console.log(`Status: Running`);
+      console.log(`Port:   ${PORT}`);
+      console.log(`Mode:   ${process.env.NODE_ENV || 'development'}`);
+      console.log(`URL:    http://localhost:${PORT}`);
+      console.log(`---------------------------`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start the server due to database connection error:', error.message);
+    process.exit(1); // Exit process with failure
+  }
 };
 
 start();
