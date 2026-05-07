@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+const roles = [
+  { value: 'STUDENT', label: 'Student', description: 'Browse courses, enroll, and track progress.' },
+  { value: 'INSTRUCTOR', label: 'Instructor', description: 'Create courses and manage lessons.' },
+];
+
 const EyeIcon = ({ open }) => open ? (
   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -15,7 +20,7 @@ const EyeIcon = ({ open }) => open ? (
 export default function AuthForm({ mode, onSubmit, loading, error }) {
   const isLogin = mode === 'login';
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'STUDENT' });
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -41,6 +46,31 @@ export default function AuthForm({ mode, onSubmit, loading, error }) {
             required
             autoComplete="name"
           />
+        </div>
+      )}
+
+      {!isLogin && (
+        <div>
+          <label className="label">Account Type</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {roles.map((role) => (
+              <label
+                key={role.value}
+                className={`cursor-pointer rounded-2xl border p-3 transition-all ${formData.role === role.value ? 'border-neon-pink bg-neon-pink/10' : 'border-neon-violet/25 hover:border-neon-violet/50'}`}
+              >
+                <input
+                  type="radio"
+                  name="role"
+                  value={role.value}
+                  checked={formData.role === role.value}
+                  onChange={handleChange}
+                  className="sr-only"
+                />
+                <span className="block text-sm font-semibold text-text-primary dark:text-text-primary-dark">{role.label}</span>
+                <span className="mt-1 block text-xs text-text-secondary dark:text-text-secondary-dark">{role.description}</span>
+              </label>
+            ))}
+          </div>
         </div>
       )}
 

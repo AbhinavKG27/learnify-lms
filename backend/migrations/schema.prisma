@@ -1,0 +1,43 @@
+// Prisma reference schema for the RBAC data model used by Learnify's MySQL database.
+// The existing backend uses mysql2 models, so this file documents the Prisma enum/model
+// shape without changing the current Express architecture.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  INSTRUCTOR
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  role         Role     @default(STUDENT)
+  courses      Subject[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Subject {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  description   String?
+  thumbnailUrl  String?  @map("thumbnail_url")
+  instructorId  Int?     @map("instructor_id")
+  instructor    User?    @relation(fields: [instructorId], references: [id], onDelete: SetNull)
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([instructorId], map: "idx_subjects_instructor")
+  @@map("subjects")
+}

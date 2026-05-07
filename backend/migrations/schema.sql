@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(255) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
+  role ENUM('STUDENT', 'INSTRUCTOR') NOT NULL DEFAULT 'STUDENT',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_users_email (email)
@@ -19,8 +20,11 @@ CREATE TABLE IF NOT EXISTS subjects (
   name VARCHAR(255) NOT NULL,
   description TEXT,
   thumbnail_url VARCHAR(500),
+  instructor_id INT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY uq_subjects_name (name)
+  UNIQUE KEY uq_subjects_name (name),
+  FOREIGN KEY (instructor_id) REFERENCES users(id) ON DELETE SET NULL,
+  INDEX idx_subjects_instructor (instructor_id)
 );
 
 -- Sections Table

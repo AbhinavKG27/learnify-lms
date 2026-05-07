@@ -14,6 +14,30 @@ class VideoModel {
     return rows[0] || null;
   }
 
+  static async create({ sectionId, title, description, videoUrl, durationSeconds, orderIndex }) {
+    const [result] = await pool.execute(
+      `INSERT INTO videos (section_id, title, description, video_url, duration_seconds, order_index)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [sectionId, title, description || null, videoUrl, Number(durationSeconds) || 0, orderIndex]
+    );
+    return this.findById(result.insertId);
+  }
+
+  static async update(id, { title, description, videoUrl, durationSeconds, orderIndex }) {
+    await pool.execute(
+      `UPDATE videos
+       SET title = ?, description = ?, video_url = ?, duration_seconds = ?, order_index = ?
+       WHERE id = ?`,
+      [title, description || null, videoUrl, Number(durationSeconds) || 0, orderIndex, id]
+    );
+    return this.findById(id);
+  }
+
+  static async delete(id) {
+    const [result] = await pool.execute('DELETE FROM videos WHERE id = ?', [id]);
+    return result.affectedRows > 0;
+  }
+
   // Get all videos for a subject in linear order (flattened)
   static async findAllBySubjectId(subjectId) {
     const [rows] = await pool.execute(

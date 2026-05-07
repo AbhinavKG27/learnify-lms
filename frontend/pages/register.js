@@ -2,26 +2,26 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/layout/Layout';
 import AuthForm from '../components/auth/AuthForm';
-import { useAuth } from '../hooks/useAuth';
+import { getRoleDashboardPath, useAuth } from '../hooks/useAuth';
 
 export default function RegisterPage() {
-  const { register, isAuthenticated } = useAuth();
+  const { register, isAuthenticated, user } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace('/dashboard');
+      router.replace(getRoleDashboardPath(user?.role));
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user, router]);
 
-  const handleSubmit = async ({ name, email, password }) => {
+  const handleSubmit = async ({ name, email, password, role }) => {
     setLoading(true);
     setError('');
     try {
-      await register(name, email, password);
-      router.push('/dashboard');
+      const data = await register(name, email, password, role);
+      router.push(getRoleDashboardPath(data.user?.role));
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
@@ -44,7 +44,7 @@ export default function RegisterPage() {
                 </svg>
               </div>
               <h1 className="font-display font-bold text-2xl text-white">Create your account</h1>
-              <p className="text-slate-400 text-sm mt-1">Join Learnify and start mastering new skills today</p>
+              <p className="text-slate-400 text-sm mt-1">Join Learnify as a student or instructor today</p>
             </div>
 
             <AuthForm
@@ -57,7 +57,7 @@ export default function RegisterPage() {
 
           {/* Benefits */}
           <div className="mt-6 grid grid-cols-3 gap-3">
-            {['100% Free', 'Linear Path', 'Track Progress'].map(b => (
+            {['Student progress', 'Instructor tools', 'Role protected'].map(b => (
               <div key={b} className="text-center py-3 glass rounded-xl">
                 <p className="text-xs text-slate-400 font-medium">{b}</p>
               </div>

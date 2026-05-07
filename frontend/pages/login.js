@@ -3,26 +3,26 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../components/layout/Layout';
 import AuthForm from '../components/auth/AuthForm';
-import { useAuth } from '../hooks/useAuth';
+import { getRoleDashboardPath, useAuth } from '../hooks/useAuth';
 
 export default function LoginPage() {
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace(router.query.next || '/dashboard');
+      router.replace(router.query.next || getRoleDashboardPath(user?.role));
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user, router]);
 
   const handleSubmit = async ({ email, password }) => {
     setLoading(true);
     setError('');
     try {
-      await login(email, password);
-      router.push(router.query.next || '/dashboard');
+      const data = await login(email, password);
+      router.push(router.query.next || getRoleDashboardPath(data.user?.role));
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Please try again.');
     } finally {

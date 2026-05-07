@@ -18,7 +18,7 @@ const ThemeIcon = ({ isDark }) => (
 );
 
 export default function Navbar() {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout, isAuthenticated, dashboardPath } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const router = useRouter();
 
@@ -145,13 +145,13 @@ export default function Navbar() {
     <button
   onClick={() => {
     setDropdownOpen(false);
-    router.push("/dashboard");
+    router.push(dashboardPath);
   }}
   className="w-full text-left px-4 py-2.5 text-sm 
   text-neon-pink hover:bg-neon-pink/10 
   transition-all duration-200"
 >
-  Dashboard
+  {user?.role === 'INSTRUCTOR' ? 'Instructor Dashboard' : 'Student Dashboard'}
 </button>
 
     <hr className="border-neon-violet/20 my-1" />

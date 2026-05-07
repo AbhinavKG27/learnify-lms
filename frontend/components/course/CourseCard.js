@@ -87,35 +87,38 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
     <div
       className={`
         card flex flex-col transition-all duration-300 group
-        hover:border-primary-400 dark:hover:border-primary-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-900/20
+        border-white/75 bg-white/[0.86] shadow-[0_26px_80px_-48px_rgba(37,20,93,0.9)] backdrop-blur-xl
+        hover:-translate-y-1.5 hover:border-accent-400/50 hover:shadow-[0_34px_100px_-52px_rgba(255,46,159,0.75)]
+        dark:border-white/10 dark:bg-white/[0.055] dark:hover:border-accent-400/40
         ${enrolling ? 'opacity-80 scale-[0.99]' : 'opacity-100'}
       `}
     >
       {/* Thumbnail */}
-      <div className={`relative h-44 bg-gradient-to-br ${gradient} overflow-hidden`}>
+      <div className={`relative h-44 overflow-hidden bg-gradient-to-br ${gradient}`}>
         {subject.thumbnail_url && (
           <img
             src={subject.thumbnail_url}
             alt={subject.name}
-            className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
+            className="absolute inset-0 h-full w-full object-cover opacity-45 saturate-125 transition-all duration-700 group-hover:scale-110 group-hover:opacity-60"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-surface-50 dark:from-surface-900 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/15 to-transparent dark:from-surface-950 dark:via-surface-950/10" />
+        <div className="absolute inset-x-4 bottom-4 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent dark:via-white/20" />
 
         {subject.enrolled && (
-          <div className="absolute top-3 right-3 badge bg-accent-500/95 text-white text-xs px-2.5 py-1">
+          <div className="absolute right-3 top-3 badge border border-white/40 bg-accent-500/95 px-2.5 py-1 text-xs text-white shadow-lg shadow-primary-900/20 backdrop-blur">
             Enrolled
           </div>
         )}
         {subject.video_count === 0 && (
-          <div className="absolute top-3 left-3 badge bg-cta-600/95 text-white text-xs px-2.5 py-1">
+          <div className="absolute left-3 top-3 badge border border-white/40 bg-cta-600/95 px-2.5 py-1 text-xs text-white shadow-lg shadow-primary-900/20 backdrop-blur">
             Coming Soon
           </div>
         )}
       </div>
 
       {/* Content */}
-      <div className="p-5 flex flex-col flex-1">
+      <div className="flex flex-1 flex-col p-5">
         <h3 className="font-display font-bold text-lg text-primary-900 dark:text-white leading-snug mb-2 line-clamp-2 group-hover:text-accent-600 dark:group-hover:text-accent-300 transition-colors">
           {subject.name}
         </h3>
@@ -125,12 +128,12 @@ export default function CourseCard({ subject, index = 0, onEnroll, enrolling }) 
         )}
 
         {/* Stats */}
-        <div className="flex items-center gap-4 mb-4 text-xs text-primary-600 dark:text-slate-500">
-          <span className="flex items-center gap-1.5">
+        <div className="mb-4 flex items-center gap-3 text-xs text-primary-600 dark:text-slate-400">
+          <span className="flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1 dark:border-white/10 dark:bg-white/5">
             <BookOpenIcon />
             {subject.section_count || 0} sections
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1 dark:border-white/10 dark:bg-white/5">
             <PlayIcon />
             {subject.video_count || 0} videos
           </span>

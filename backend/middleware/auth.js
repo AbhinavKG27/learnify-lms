@@ -1,5 +1,10 @@
 const jwt = require('jsonwebtoken');
 
+const ROLES = Object.freeze({
+  STUDENT: 'STUDENT',
+  INSTRUCTOR: 'INSTRUCTOR',
+});
+
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -21,4 +26,16 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = { authenticate };
+const authorize = (...allowedRoles) => (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Authentication required' });
+  }
+
+  if (!allowedRoles.includes(req.user.role)) {
+    return res.status(403).json({ error: 'You do not have permission to access this resource' });
+  }
+
+  next();
+};
+
+module.exports = { authenticate, authorize, ROLES };
