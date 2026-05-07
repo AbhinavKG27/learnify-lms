@@ -425,12 +425,9 @@ export default function HomePage() {
         id="courses"
         className="py-32 bg-[#060816]"
       >
-
         <div className="max-w-7xl mx-auto px-6">
-
           {/* Heading */}
           <div className="text-center mb-16">
-
             <h2
               className="
               text-5xl
@@ -442,16 +439,12 @@ export default function HomePage() {
             >
               Explore Courses
             </h2>
-
             <p className="text-white/60 text-lg">
               Handcrafted learning paths for modern skills.
             </p>
-
           </div>
-
           {/* Loading */}
           {loading ? (
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
               {[1, 2, 3].map((i) => (
